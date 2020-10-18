@@ -6,7 +6,7 @@
 //   reverse('hello') === 'olleh'
 //   reverse('Greetings!') === '!sgniteerG'
 
-// Main solution
+// Main Solution
 function strReverseWithForLoop(str) {
   const charArr = str.split("");
 
@@ -19,7 +19,7 @@ function strReverseWithForLoop(str) {
   return charArr.join("");
 }
 
-// Alternate solutions
+// Alternate Solutions
 function strReverseWithJsReduce(str) {
   return str.split("").reduce((reversed, char) => char + reversed);
 }

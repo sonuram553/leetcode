@@ -7,13 +7,14 @@
 //   palindrome("abba") === true
 //   palindrome("abcdefg") === false
 
-function palindrome(str) {
+// Main Solution
+function palindromeWithForLoop(str) {
   let isPalindrome = true;
   const len = str.length;
   const upto = Math.floor(len / 2);
 
   for (let i = 0; i < upto; i++) {
-    if (str[i] !== str[len - i - 1]) {
+    if (str[i] !== str[len - 1 - i]) {
       isPalindrome = false;
       break;
     }
@@ -22,9 +23,21 @@ function palindrome(str) {
   return isPalindrome;
 }
 
-module.exports = palindrome;
-
-/* function palindrome(str) {
+// Alternate Solutions
+function palindromeWithJsEvery(str) {
   const len = str.length;
   return str.split("").every((char, i) => char === str[len - 1 - i]);
-} */
+}
+
+function palindromeWithRecursion(str, index = 0) {
+  if (str.length < 2) return true;
+
+  const mid = Math.floor((str.length - 1) / 2);
+  if (index > mid) return true;
+
+  if (str[index] === str[str.length - index - 1])
+    return palindromeWithRecursion(str, index + 1);
+  return false;
+}
+
+module.exports = palindromeWithForLoop;
