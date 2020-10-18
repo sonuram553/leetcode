@@ -6,20 +6,29 @@
 //   reverse('hello') === 'olleh'
 //   reverse('Greetings!') === '!sgniteerG'
 
-function reverse(str) {
+// Main solution
+function strReverseWithForLoop(str) {
+  const charArr = str.split("");
+
+  for (let i = 0, j = charArr.length - 1; i < j; i++, j--) {
+    const temp = charArr[i];
+    charArr[i] = charArr[j];
+    charArr[j] = temp;
+  }
+
+  return charArr.join("");
+}
+
+// Alternate solutions
+function strReverseWithJsReduce(str) {
   return str.split("").reduce((reversed, char) => char + reversed);
 }
 
-module.exports = reverse;
-
-// Alternate solutions
-
-/* 
-function reverse(str) {
+function strReverseWithJsReverse(str) {
   return str.split("").reverse().join("");
 }
 
-function reverse(str) {
+function strReverseWithForOfLoop(str) {
   let reversed = "";
 
   for (let char of str) {
@@ -29,11 +38,10 @@ function reverse(str) {
   return reversed;
 }
 
-function reverse(str) {
-  let reversed = "";
-  for (i = str.length - 1; i >= 0; i--) {
-    reversed += str[i];
-  }
-  return reversed;
+function strReverseWithRecursion(str, index = 0) {
+  if (index === str.length - 1) return str[index];
+
+  return strReverseWithRecursion(str, index + 1) + str[index];
 }
- */
+
+module.exports = strReverseWithForLoop;
