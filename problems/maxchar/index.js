@@ -5,17 +5,18 @@
 // maxChar("abcccccccd") === "c"
 // maxChar("apple 1231111") === "1"
 
-function maxChar(str) {
+// Main Solution
+function maxCharWithMap(str) {
   let obj = {};
 
   for (let char of str) {
     obj[char] = obj[char] + 1 || 1;
   }
 
-  return maxValueOfkey(obj);
+  return maxValueOfKey(obj);
 }
 
-function maxValueOfkey(obj) {
+function maxValueOfKey(obj) {
   let max = 0;
   let char = "";
 
@@ -25,28 +26,33 @@ function maxValueOfkey(obj) {
       char = key;
     }
   }
+
   return char;
 }
 
-module.exports = maxChar;
+// Alternate Solutions
+const ascii_0 = 48;
 
-/* const asciiFor_0 = 48;
-
-function maxChar(str) {
-  const lowerCaseAlphabets = Array(75).fill(0);
+function maxCharWithAscii(str) {
+  const charsCount = Array(75).fill(0);
 
   for (let char of str) {
-    lowerCaseAlphabets[char.charCodeAt(0) - asciiFor_0]++;
+    charsCount[char.charCodeAt(0) - ascii_0]++;
   }
-  let index = maxNumAtIndex(lowerCaseAlphabets);
-  return String.fromCharCode(asciiFor_0 + index);
+
+  const index = maxNumAtIndex(charsCount);
+
+  return String.fromCharCode(ascii_0 + index);
 }
 
 function maxNumAtIndex(arr) {
   let index = 0;
+
   for (let i = 1; i < arr.length; i++) {
-    arr[i] > arr[index] ? (index = i) : "";
+    arr[i] > arr[index] ? (index = i) : null;
   }
 
   return index;
-} */
+}
+
+module.exports = maxCharWithMap;
