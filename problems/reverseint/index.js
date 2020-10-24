@@ -8,23 +8,25 @@
 //   reverseInt(-15) === -51
 //   reverseInt(-90) === -9
 
-function reverseInt(num) {
+// Main Solution
+function intReverseWithWhileLoop(num) {
   if (num === 0) return 0;
 
-  let temp = num < 0 ? -num : num;
+  let absNum = num < 0 ? -num : num;
   let rev = 0;
-  while (temp !== 0) {
-    rev = rev * 10 + (temp % 10);
-    temp = Math.floor(temp / 10);
+  while (absNum !== 0) {
+    rev = rev * 10 + (absNum % 10);
+    absNum = Math.floor(absNum / 10);
   }
 
   return num < 0 ? -rev : rev;
 }
 
-module.exports = reverseInt;
+// Alternate Solutions
+function intReverseWithJsReverse(num) {
+  const rev = num.toString().split("").reverse().join("");
 
-/* function reverseInt(num) {
-    const rev = num.toString().split("").reverse().join("");
+  return parseInt(rev) * Math.sign(num);
+}
 
-    return parseInt(rev) * Math.sign(num);
-} */
+module.exports = intReverseWithWhileLoop;
