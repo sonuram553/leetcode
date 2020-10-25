@@ -8,18 +8,8 @@
 // chunk([1, 2, 3, 4, 5], 4) --> [[ 1, 2, 3, 4], [5]]
 // chunk([1, 2, 3, 4, 5], 10) --> [[ 1, 2, 3, 4, 5]]
 
-function chunk(array, size) {
-  const chunks = [];
-  let i = 0;
-
-  while (i < array.length) chunks.push(array.slice(i, (i += size)));
-
-  return chunks;
-}
-
-module.exports = chunk;
-
-/* function chunk(array, size) {
+// Main Solution
+function chunkWithForOfLoop(array, size) {
   const chunks = [];
 
   for (let item of array) {
@@ -33,24 +23,34 @@ module.exports = chunk;
   }
 
   return chunks;
-} */
+}
 
-/* function chunk(array, size) {
+// Alternate Solutions
+function chunkWithArraySlice(array, size) {
   const chunks = [];
-  let temp = [],
-    count = 1;
+  let i = 0;
 
-  for (let item of array) {
-    temp.push(item);
+  while (i < array.length) chunks.push(array.slice(i, (i += size)));
 
-    if (count % size === 0) {
+  return chunks;
+}
+
+function chunkWithForLoop(array, size) {
+  const chunks = [];
+  let temp = [];
+
+  for (let i = 0; i < array.length; i++) {
+    temp.push(array[i]);
+
+    if ((i + 1) % size === 0) {
       chunks.push(temp);
       temp = [];
-    } else if (count === array.length) {
+    } else if (i + 1 === array.length) {
       chunks.push(temp);
     }
-    count++;
   }
 
   return chunks;
-} */
+}
+
+module.exports = chunkWithForOfLoop;
