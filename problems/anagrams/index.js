@@ -1,5 +1,5 @@
 // --- Directions
-// Check to see if two provided strings are anagrams of eachother.
+// Check to see if two provided strings are anagrams of each-other.
 // One string is an anagram of another if it uses the same characters
 // in the same quantity. Only consider characters, not spaces
 // or punctuation.  Consider capital letters to be the same as lower case
@@ -8,57 +8,61 @@
 //   anagrams('RAIL! SAFETY!', 'fairy tales') --> True
 //   anagrams('Hi there', 'Bye there') --> False
 
+// Main Solution
 function anagrams(strA, strB) {
-  const sortedStrA = strA.replace(/[^\w]/g, "").split("").sort().join("");
-  const sortedStrB = strB.replace(/[^\w]/g, "").split("").sort().join("");
-
-  return sortedStrA === sortedStrB;
-}
-
-module.exports = anagrams;
-
-/* function anagrams(strA, strB) {
-  const newStrA = strA.replace(/[^a-zA-z]/g, "");
-  const newStrB = strB.replace(/[^a-zA-Z]/g, "");
+  const newStrA = cleanString(strA);
+  const newStrB = cleanString(strB);
 
   if (newStrA.length !== newStrB.length) return false;
 
-  let objA = {};
+  const charMapA = {};
   for (let char of newStrA) {
-    objA[char] = objA[char] + 1 || 1;
+    charMapA[char] = charMapA[char] + 1 || 1;
   }
 
-  let objB = {};
+  const charMapB = {};
   for (let char of newStrB) {
-    objB[char] = objB[char] + 1 || 1;
-    if (objB[char] && objB[char] > objA[char]) return false;
+    charMapB[char] = charMapB[char] + 1 || 1;
+    if (!charMapA[char] || charMapB[char] > charMapA[char]) return false;
   }
 
   return true;
-} */
+}
 
-/* function anagrams(stringA, stringB) {
-  const newStringA = stringA.replace(/[^a-zA-Z]/g, "").toLowerCase();
-  const newStringB = stringB.replace(/[^a-zA-Z]/g, "").toLowerCase();
+// Alternate Solutions
+function anagrams1(strA, strB) {
+  return sortString(strA) === sortString(strB);
+}
 
-  if (newStringA.length !== newStringB.length) return false;
+// Not using second characterMap
+function anagrams2(strA, strB) {
+  const newStrA = cleanString(strA);
+  const newStrB = cleanString(strB);
 
-  const objA = charsMap(newStringA);
-  const objB = charsMap(newStringB);
+  if (newStrA.length !== newStrB.length) return false;
 
-  for (let key in objA) {
-    if (objA[key] !== objB[key]) return false;
+  const charMapA = {};
+
+  for (let char of newStrA) {
+    charMapA[char] = charMapA[char] + 1 || 1;
+  }
+
+  for (let char of newStrB) {
+    // Can't find the character or its value is zero then it's not an anagram
+    if (!charMapA[char]) return false;
+    charMapA[char] -= 1;
   }
 
   return true;
-} 
+}
 
-function charsMap(str) {
-  let map = {};
+// Helper Functions
+function cleanString(str) {
+  return str.replace(/[^\w]/g, "").toLowerCase();
+}
 
-  for (let char of str) {
-    map[char] = map[char] + 1 || 1;
-  }
+function sortString(str) {
+  return cleanString(str).split("").sort().join("");
+}
 
-  return map;
-}*/
+module.exports = anagrams;
