@@ -17,49 +17,25 @@
 //       '### '
 //       '####'
 
-// Recursion 2
+// Main Solution
+function steps(n) {
+  for (let row = 0; row < n; row++) {
+    let step = "";
 
-function steps(n, row = 1, step = "") {
-  if (n + 1 === row) return;
+    for (let col = 0; col < n; col++) {
+      if (col <= row) step += "#";
+      else step += " ";
+    }
 
-  if (step.length === n) {
     console.log(step);
-    return steps(n, row + 1);
   }
-
-  if (step.length < row) {
-    step += "#";
-  } else {
-    step += " ";
-  }
-  steps(n, row, step);
 }
 
-module.exports = steps;
-
-// Recursion 1
-
-/* function steps(n, row = 1) {
-  let step = "",
-    i = 1;
-
-  for (i = 1; i <= row; i++) {
-    step += "#";
-  }
-
-  for (i; i <= n; i++) {
-    step += " ";
-  }
-  console.log(step);
-
-  if (n === row) return;
-  steps(n, row + 1);
-} */
-
-/* function steps(n) {
+// Alternate Solutions
+function stepsWithStringsSlice(n) {
   let step = "";
 
-  for (let i = 1; i <= n; i++) {
+  for (let i = 0; i < n; i++) {
     step += " ";
   }
 
@@ -68,17 +44,58 @@ module.exports = steps;
     hash = (hash && hash + "#") || "#";
     console.log(hash + step.slice(i));
   }
-} */
+}
 
-/* function steps(n) {
+function stepsWithRowAndCol(n) {
   let hash;
-  for (let row = 1; row <= n; row++) {
+
+  for (let row = 0; row < n; row++) {
     hash = (hash && hash + "#") || "#";
+
     let spaces = "";
-    for (let col = row + 1; col <= n; col++) {
+
+    for (let col = row + 1; col < n; col++) {
       spaces += " ";
     }
 
     console.log(hash + spaces);
   }
-} */
+}
+
+function stepsWithRecursion1(n, row = 0) {
+  if (row === n) return;
+
+  let step = "";
+  let i = 0;
+
+  for (; i <= row; i++) {
+    step += "#";
+  }
+
+  for (i; i < n; i++) {
+    step += " ";
+  }
+
+  console.log(step);
+
+  stepsWithRecursion1(n, row + 1);
+}
+
+function stepsWithRecursion2(n, row = 0, step = "") {
+  if (row === n) return;
+
+  if (step.length === n) {
+    console.log(step);
+    return stepsWithRecursion2(n, row + 1);
+  }
+
+  if (step.length <= row) {
+    step += "#";
+  } else {
+    step += " ";
+  }
+
+  stepsWithRecursion2(n, row, step);
+}
+
+module.exports = steps;
