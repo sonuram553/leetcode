@@ -10,8 +10,7 @@
 // Example:
 //   fib(4) === 3
 
-// Memoization
-
+// Main Solution
 function memoize(fn) {
   const cache = {};
 
@@ -26,35 +25,28 @@ function memoize(fn) {
   };
 }
 
-function slowFib(n) {
+function fib(n) {
   if (n < 2) return n;
-  return fib(n - 1) + fib(n - 2);
+  //return fib(n - 1) + fib(n - 2);
+  return memoizedFib(n - 1) + memoizedFib(n - 2);
 }
 
-const fib = memoize(slowFib);
+const memoizedFib = memoize(fib);
 
-module.exports = fib;
-
-/* const series = [0, 1];
-function fib(n) {
+// Alternate Solutions
+const series = [0, 1];
+function fibSeries(n) {
   if (series[n] || series[n] === 0) return series[n];
-
-  series[n] = fib(n - 1) + fib(n - 2);
+  series[n] = fibSeries(n - 1) + fibSeries(n - 2);
   return series[n];
-} */
+}
 
-// Recursion
-/* function fib(n) {
+function fibIterative(n) {
   if (n < 2) return n;
-  return fib(n - 1) + fib(n - 2);
-} */
 
-/* function fib(n) {
-  if (n === 1 || n === 2) return 1;
-
-  let a = 0,
-    b = 1,
-    c;
+  let a = 0;
+  let b = 1;
+  let c;
 
   for (let i = 0; i < n - 1; i++) {
     c = b + a;
@@ -63,4 +55,6 @@ function fib(n) {
   }
 
   return c;
-} */
+}
+
+module.exports = memoizedFib;
