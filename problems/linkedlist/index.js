@@ -95,7 +95,7 @@ class LinkedList {
   }
 
   removeAt(at = 0) {
-    if (at >= this.count) return null;
+    if (at >= this.count || !this.head) return null;
 
     this.count--;
     if (at === 0) return this.removeFirst();
@@ -118,9 +118,9 @@ class LinkedList {
   insertAt(data, at = 0) {
     this.count++;
     if (at >= this.count) return this.insertLast(data);
-    if (at === 0) return this.insertFirst(data);
+    if (at === 0 || !this.head) return this.insertFirst(data);
 
-    let prevNode = this.getAt(at - 1);
+    const prevNode = this.getAt(at - 1);
     const node = new Node(data, prevNode.next);
     prevNode.next = node;
   }
