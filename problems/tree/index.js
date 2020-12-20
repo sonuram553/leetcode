@@ -35,9 +35,9 @@ class Tree {
 
     const nodes = [this.root];
     while (nodes.length) {
-      const returnedNode = nodes.shift();
-      nodes.push(...returnedNode.children);
-      fn(returnedNode);
+      const node = nodes.shift();
+      nodes.push(...node.children);
+      fn(node);
     }
   }
 
@@ -46,9 +46,9 @@ class Tree {
 
     const nodes = [this.root];
     while (nodes.length) {
-      const returnedNode = nodes.shift();
-      nodes.unshift(...returnedNode.children);
-      fn(returnedNode);
+      const node = nodes.shift();
+      nodes.unshift(...node.children);
+      fn(node);
     }
   }
 }
