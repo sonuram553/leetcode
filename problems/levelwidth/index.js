@@ -16,9 +16,10 @@ function levelWidth(root) {
   const nodes = [root, "s"]; // "s" to signal that new level is started
 
   while (nodes.length > 1) {
-    const returnedNode = nodes.shift();
-    if (returnedNode !== "s") {
-      nodes.push(...returnedNode.children);
+    const node = nodes.shift();
+
+    if (node !== "s") {
+      nodes.push(...node.children);
       counters[counters.length - 1]++;
     } else {
       counters.push(0);
