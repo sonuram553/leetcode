@@ -38,9 +38,30 @@ class Node {
     } else if (data > this.data && this.right) {
       return this.right.contains(data);
     }
-    
+
     return null;
   }
+
+  dfPreOrder(node = this) {
+    if (!node) return [];
+
+    const visited = [
+      node.data,
+      ...this.dfPreOrder(node.left),
+      ...this.dfPreOrder(node.right),
+    ];
+
+    return visited;
+  }
+
+  // Alternate solution
+  /* dfPreOrder(node = this) {
+    if (!node) return null;
+
+    console.log(node.data);
+    this.dfPreOrder(node.left);
+    this.dfPreOrder(node.right);
+  } */
 }
 
 module.exports = Node;

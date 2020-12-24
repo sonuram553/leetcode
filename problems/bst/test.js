@@ -39,3 +39,18 @@ test('Contains returns null if value not found', () => {
 
   expect(node.contains(9999)).toEqual(null);
 });
+
+test('Depth First traversal with only one element', () => {
+  const node = new Node(10);
+ 
+  expect(node.dfPreOrder()).toEqual([10]);
+});
+
+test('Depth First traversal with more than one elements', () => {
+  const node = new Node(10);
+  node.insert(5);
+  node.insert(15);
+  node.insert(20);
+
+  expect(node.dfPreOrder()).toEqual([10, 5, 15, 20]);
+});
