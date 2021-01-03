@@ -15,7 +15,7 @@ test("Same returns false when arrays lengths are different", () => {
 });
 
 test("Same returns true if every value in the array has it's corresponding value squared in the second array", () => {
-  expect(same([1, 2], [4, 1]));
-  expect(same([2, 3, 5], [4, 25, 9]));
-  expect(same([2, 3, 5], [4, 9, 25]));
+  expect(same([2, 3, 2], [4, 9, 25])).toEqual(false);
+  expect(same([2, 3, 2], [4, 9, 4])).toEqual(true);
+  expect(same([2, 3, 5], [4, 9, 25])).toEqual(true);
 });

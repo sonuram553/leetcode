@@ -12,21 +12,25 @@ same([1, 2, 1], [4, 4, 1])  // returns false;
 */
 
 function same(leftArr, rightArr) {
-  if(leftArr.length !== rightArr.length) return false;
+  if (leftArr.length !== rightArr.length) return false;
 
   const leftArrMap = {};
   const rightArrMap = {};
 
-  for(let value of leftArr) {
-    leftArrMap[value] = value * value;
+  for (let value of leftArr) {
+    leftArrMap[value] = ++leftArrMap[value] || 1;
   }
 
-  for(let value of rightArr) {
-    rightArrMap[value] = true;
+  for (let value of rightArr) {
+    rightArrMap[value] = ++rightArrMap[value] || 1;
   }
 
-  for(let key in leftArrMap) {
-    if(rightArrMap[leftArrMap[key]] === undefined) return false;
+  for (let key in leftArrMap) {
+    if (
+      !(key * key in rightArrMap) ||
+      rightArrMap[key * key] !== leftArrMap[key]
+    )
+      return false;
   }
 
   return true;
