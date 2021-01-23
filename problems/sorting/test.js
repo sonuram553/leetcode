@@ -1,6 +1,7 @@
 const S = require('./index');
 const bubbleSort = S.bubbleSort;
 const selectionSort = S.selectionSort;
+const insertionSort = S.insertionSort;
 const mergeSort = S.mergeSort;
 const merge = S.merge;
 
@@ -21,6 +22,12 @@ describe('Bubble sort', () => {
 describe('Selection sort', () => {
   test('sorts an array', () => {
     expect(selectionSort(getArray())).toEqual(getSortedArray());
+  });
+});
+
+describe('Insertion sort', () => {
+  test('sorts an array', () => {
+    expect(insertionSort(getArray())).toEqual(getSortedArray());
   });
 });
 

@@ -1,5 +1,5 @@
 // --- Directions
-// Implement bubbleSort, selectionSort, and mergeSort
+// Implement bubbleSort, selectionSort, insertionSort and mergeSort
 
 function bubbleSort(arr) {
   for (let i = arr.length - 1; i > 0; i--) {
@@ -52,6 +52,21 @@ function selectionSort(arr) {
   return arr;
 }
 
+function insertionSort(arr) {
+  for (let i = 1; i < arr.length; i++) {
+    const currentVal = arr[i];
+
+    let j = i - 1;
+    for (; j >= 0 && arr[j] > currentVal; j--) {
+      arr[j + 1] = arr[j];
+    }
+
+    arr[j + 1] = currentVal;
+  }
+
+  return arr;
+}
+
 function mergeSort(arr) {
   if (arr.length === 1) return arr;
 
@@ -99,4 +114,4 @@ function merge(left, right) {
   return result;
 } */
 
-module.exports = { bubbleSort, selectionSort, mergeSort, merge };
+module.exports = { bubbleSort, selectionSort, insertionSort, mergeSort, merge };
