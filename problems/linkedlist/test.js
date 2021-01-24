@@ -110,6 +110,7 @@ describe("RemoveLast", () => {
     l.insertFirst("a");
     l.removeLast();
     expect(l.head).toEqual(null);
+    expect(l.size()).toEqual(0);
   });
 
   test("RemoveLast removes the last node when list is length 2", () => {

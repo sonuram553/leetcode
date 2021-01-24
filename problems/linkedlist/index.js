@@ -61,11 +61,12 @@ class LinkedList {
 
     if (!this.head.next) {
       this.head = null;
+      this.count--;
       return;
     }
 
-    let prevNode = null,
-      node = this.head;
+    let prevNode = null;
+    let node = this.head;
 
     while (node.next) {
       prevNode = node;
