@@ -75,6 +75,8 @@ class PriorityQueue {
   }
 }
 
+module.exports = PriorityQueue;
+
 const queue = new PriorityQueue();
 
 queue.enqueue("", 10);
