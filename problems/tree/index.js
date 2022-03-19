@@ -30,6 +30,7 @@ class Tree {
     this.root = null;
   }
 
+  // Breadth First Traversal
   traverseBF(fn) {
     if (!this.root) return;
 
@@ -41,6 +42,7 @@ class Tree {
     }
   }
 
+  // Depth First Traversal
   traverseDF(fn) {
     if (!this.root) return;
 
