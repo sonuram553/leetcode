@@ -45,8 +45,13 @@ function height(root) {
   return Math.max(left, right) + 1;
 }
 
-const nodes = [3, 9, 10, 11];
+const nodes = [3, 9, 10, 11, 2, 4, 4];
 const root = insertItemToTree(null, nodes);
 
-if (Math.abs(height(root.left) - height(root.right)) < 2) console.log(true);
-else console.log(false);
+function isBalanced(root) {
+  if (!root) return true;
+
+  if (Math.abs(height(root.left) - height(root.right)) > 1) return false;
+
+  return isBalanced(root.left) && isBalanced(root.right);
+}
