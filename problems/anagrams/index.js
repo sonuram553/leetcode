@@ -43,13 +43,13 @@ function anagrams2(strA, strB) {
 
   const charMapA = {};
 
-  for (let char of newStrA) {
+  for (const char of newStrA) {
     charMapA[char] = charMapA[char] + 1 || 1;
   }
 
-  for (let char of newStrB) {
+  for (const char of newStrB) {
     // Can't find the character or its value is zero then it's not an anagram
-    if (!charMapA[char]) return false;
+    if (charMapA[char] === undefined || charMapA[char] === 0) return false;
     charMapA[char] -= 1;
   }
 
