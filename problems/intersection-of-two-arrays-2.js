@@ -21,7 +21,6 @@ function intersect(nums1, nums2) {
   const result = [];
   let largeArr;
   let smallArr;
-  let isIntersection = false;
 
   if (size1 < size2) {
     smallArr = nums1;
@@ -35,7 +34,8 @@ function intersect(nums1, nums2) {
     map1[num] = map1[num] + 1 || 1;
   }
 
-  // Check whether there is an intersection at all.
+  // Check whether there is an intersection at all. To save filling map2.
+  let isIntersection = false;
   for (const num of largeArr) {
     if (map1[num]) {
       isIntersection = true;
