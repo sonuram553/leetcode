@@ -12,16 +12,23 @@ function arrangeCoins1(n) {
 }
 
 // Binary Search
-function arrangeCoins(n) {
+function arrangeCoins2(n) {
   let start = 1;
   let end = n;
 
-  while (start < end) {
+  while (start <= end) {
     const mid = Math.floor((start + end) / 2);
-    if (Math.floor((mid * (mid + 1)) / 2) > n) end = mid - 1;
+    const sum = Math.floor((mid * (mid + 1)) / 2);
+
+    if (sum === n) return mid;
+    if (sum > n) end = mid - 1;
     else start = mid + 1;
   }
 
-  return start;
+  return end;
 }
 
+// Math
+function arrangeCoins(n) {
+  return Math.floor(Math.sqrt(2 * n + 0.25) - 0.5);
+}
