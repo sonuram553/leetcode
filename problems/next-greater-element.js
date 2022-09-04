@@ -26,14 +26,11 @@ class Node {
 
 class Stack {
   top = null;
-  size = 0;
 
   push(data) {
     const node = new Node(data);
     node.prev = this.top;
     this.top = node;
-
-    this.size++;
   }
 
   pop() {
@@ -43,7 +40,6 @@ class Stack {
     this.top = node.prev;
     node.prev = null;
 
-    this.size--;
     return node.data;
   }
 
@@ -63,7 +59,7 @@ class Stack {
 //   for (let i = 1; i < arr.length; i++) {
 //     const next = arr[i];
 
-//     while (next > stack.peek() && stack.size) {
+//     while (stack.peek() !== undefined && next > stack.peek()) {
 //       console.log(`${stack.pop()} -> ${next}`);
 //     }
 
@@ -76,19 +72,46 @@ class Stack {
 // }
 
 // Ordered next greater elements
-function nextGreaterElement(arr) {
-  const result = Array(arr.length).fill(-1);
+// function nextGreaterElement(arr) {
+//   const result = Array(arr.length).fill(-1);
+//   const stack = new Stack();
+//   stack.push({ value: arr[0], index: 0 });
+
+//   for (let i = 1; i < arr.length; i++) {
+//     const next = arr[i];
+
+//     while (stack.peek() !== undefined && next > stack.peek().value) {
+//       result[stack.pop().index] = next;
+//     }
+
+//     stack.push({ value: next, index: i });
+//   }
+
+//   return result;
+// }
+
+// LeetCode
+function nextGreaterElement(leftNums, rightNums) {
+  const result = Array(leftNums.length).fill(-1);
+  const leftNumsIndexMap = {};
   const stack = new Stack();
-  stack.push({ value: arr[0], index: 0 });
+  stack.push(rightNums[0]);
 
-  for (let i = 1; i < arr.length; i++) {
-    const next = arr[i];
+  for (let i = 0; i < leftNums.length; i++) {
+    leftNumsIndexMap[leftNums[i]] = i;
+  }
 
-    while (stack.size && next > stack.peek().value) {
-      result[stack.pop().index] = next;
+  for (let i = 1; i < rightNums.length; i++) {
+    const next = rightNums[i];
+
+    while (stack.peek() !== undefined && next > stack.peek()) {
+      const popped = stack.pop();
+
+      if (leftNumsIndexMap[popped] !== undefined)
+        result[leftNumsIndexMap[popped]] = next;
     }
 
-    stack.push({ value: next, index: i });
+    stack.push(next);
   }
 
   return result;
