@@ -1,16 +1,5 @@
 // Using Sliding Window
 
-function countItems(arr) {
-  const map = {};
-
-  for (const item of arr) {
-    if (map[item]) map[item] += 1;
-    else map[item] = 1;
-  }
-
-  return map;
-}
-
 function minWindow(s, t) {
   let left = 0;
   let right = 0;
@@ -48,4 +37,15 @@ function minWindow(s, t) {
 
   if (result[0] === Infinity) return "";
   else return s.slice(result[1], result[2] + 1);
+}
+
+function countItems(arr) {
+  const map = {};
+
+  for (const item of arr) {
+    if (map[item]) map[item] += 1;
+    else map[item] = 1;
+  }
+
+  return map;
 }
