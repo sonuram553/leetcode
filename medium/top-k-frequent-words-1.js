@@ -1,3 +1,5 @@
+// Using Quick Sort
+
 function topKFrequent(words, k) {
   quickSort(words, 0, words.length - 1, compareString);
   const result = [[words[0], 1]];
