@@ -13,3 +13,5 @@ function subarraySum(nums, k) {
 
   return count;
 }
+
+console.log(subarraySum([1, -1, 1], 1));
