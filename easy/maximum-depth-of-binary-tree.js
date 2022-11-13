@@ -6,3 +6,4 @@ function maxDepth(root) {
 
   return Math.max(left, right) + 1;
 }
+
