@@ -6,10 +6,8 @@ function isSubtree(root, subRoot) {
 
     if (equalTrees(node, subRoot)) isFoundSubtree = true;
 
-    if (!isFoundSubtree) {
-      preOrder(node.left);
-      preOrder(node.right);
-    }
+    if (!isFoundSubtree) preOrder(node.left);
+    if (!isFoundSubtree) preOrder(node.right);
   }
 
   preOrder(root);
