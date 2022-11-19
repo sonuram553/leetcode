@@ -1,3 +1,5 @@
+// Recursive
+
 function mergeTrees(root1, root2) {
   if (root1 && root2) return merge(root1, root2);
   return root1 || root2;
