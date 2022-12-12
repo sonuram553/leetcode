@@ -5,18 +5,32 @@ function kWeakestRows(mat, k) {
 
   for (let i = 0; i < mat.length; i++) {
     let soldiersCount = 0;
+    const index = binarySearch(mat[i]);
 
-    for (const bit of mat[i]) {
-      if (bit) soldiersCount++;
-      else break;
-    }
-
+    if (index !== -1) soldiersCount = index + 1;
     minHeap.insert({ soldiersCount, i });
   }
 
   const result = [];
   for (let i = 0; i < k; i++) result.push(minHeap.extractMin().i);
   return result;
+}
+
+function binarySearch(arr) {
+  let start = 0;
+  let end = arr.length - 1;
+  let index = -1;
+
+  while (start <= end) {
+    const mid = (start + end) >>> 1;
+
+    if (arr[mid]) {
+      index = mid;
+      start = mid + 1;
+    } else end = mid - 1;
+  }
+
+  return index;
 }
 
 class MinHeap {
