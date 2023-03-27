@@ -1,20 +1,9 @@
-const buildArray = function (nums) {
-  const prev = { index: null, value: null };
+function buildArray(nums) {
+  const n = nums.length;
 
-  for (let i = 0; i < nums.length; i++) {
-    const value = nums[i];
-
-    if (prev.index === value) {
-      nums[i] = prev.value;
-    } else {
-      nums[i] = nums[value];
-    }
-
-    if (i !== value) {
-      prev.index = i;
-      prev.value = value;
-    }
+  for (let i = 0; i < n; i++) {
+    nums[i] = nums[i] + n * (nums[nums[i]] % n);
   }
 
-  return nums;
-};
+  return nums.map((num) => Math.floor(num / n));
+}
