@@ -1,9 +1,14 @@
 function curry(fn) {
-  const argsList = [];
+  return function curried(...args) {
+    if (args.length >= fn.length) return fn(...args);
+    return (...nextArgs) => curried(...args, ...nextArgs);
+  };
+}
 
-  return function _curry(...args) {
-    for (const arg of args) argsList.push(arg);
-    if (argsList.length === fn.length) return fn(...argsList);
-    return _curry;
+// With bind
+function curry(fn) {
+  return function curried(...args) {
+    if (args.length >= fn.length) return fn.apply(this, args);
+    return curried.bind(this, ...args);
   };
 }
