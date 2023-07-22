@@ -4,3 +4,4 @@ function smallestEqual(nums) {
   }
   return -1;
 }
+ 
