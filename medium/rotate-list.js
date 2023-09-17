@@ -1,5 +1,5 @@
 function rotateRight(head, k) {
-  if (!head) return head;
+  if (!head) return null;
 
   let size = 0;
   let currentNode = head;
@@ -19,18 +19,15 @@ function rotateRight(head, k) {
     currentNode = currentNode.next;
   }
 
-  const temp = currentNode.next;
+  const newHead = currentNode.next;
   currentNode.next = null;
+  currentNode = newHead;
 
-  currentNode = temp;
   while (currentNode.next) {
     currentNode = currentNode.next;
   }
 
   // We are at the last node. Set it's next to head;
   currentNode.next = head;
-
-  head = temp;
-
-  return head;
+  return newHead;
 }
