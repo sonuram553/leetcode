@@ -40,14 +40,17 @@ class MyQueue {
 }
 
 /**
- * @param {character[][]} grid
- * @return {number}
+ * @param {character[][]} board
+ * @return {void} Do not return anything, modify board in-place instead.
  */
-var numIslands = function (grid) {
-  const rows = grid.length;
-  const cols = grid[0].length;
+var solve = function (board) {
+  const rows = board.length;
+  const cols = board[0].length;
   const visited = new Set();
-  let islands = 0;
+
+  function isOnBorder(r, c) {
+    return r === 0 || r === rows - 1 || c === 0 || c === cols - 1;
+  }
 
   function bfs(r, c) {
     const queue = new MyQueue();
@@ -71,7 +74,7 @@ var numIslands = function (grid) {
           r < rows &&
           c >= 0 &&
           c < cols &&
-          grid[r][c] === "1" &&
+          board[r][c] === "O" &&
           !visited.has(getKey(r, c))
         ) {
           queue.enqueue([r, c]);
@@ -83,14 +86,24 @@ var numIslands = function (grid) {
 
   for (let r = 0; r < rows; r++) {
     for (let c = 0; c < cols; c++) {
-      if (grid[r][c] === "1" && !visited.has(getKey(r, c))) {
+      if (
+        board[r][c] === "O" &&
+        isOnBorder(r, c) &&
+        !visited.has(getKey(r, c))
+      ) {
         bfs(r, c);
-        islands++;
       }
     }
   }
 
-  return islands;
+  // Flip the zeros not present in visited set
+  for (let r = 0; r < rows; r++) {
+    for (let c = 0; c < cols; c++) {
+      if (board[r][c] === "O" && !visited.has(getKey(r, c))) {
+        board[r][c] = "X";
+      }
+    }
+  }
 };
 
 function getKey(r, c) {
