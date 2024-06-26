@@ -18,9 +18,9 @@ function reverseVowels(str) {
         arr[end] = left;
 
         start++;
-        end--;
         startVowel = "";
-      } else end--;
+      }
+      end--;
     } else start++;
   }
 
