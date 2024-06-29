@@ -1,27 +1,55 @@
-function reverseWords(s) {
-  let i = 0;
-  const n = s.length;
+/**
+ * Time complexity O(n)
+ * Space complexity O(n)
+ * @param {string} s
+ * @return {string}
+ */
+var reverseWords = function (s) {
+  const words = s
+    .trim()
+    .split(" ")
+    .filter((word) => Boolean(word));
+  // const words = s.trim().split(/\s+/); // Same as above but slower
 
-  // Skip leading spaces
-  while (s[i] === " ") i++;
+  let start = 0;
+  let end = words.length - 1;
 
-  let word = "";
-  let reversed = "";
-
-  while (i < n) {
-    if (s[i] === " ") {
-      if (reversed.length) word += " ";
-      reversed = word + reversed;
-      word = "";
-
-      // Skip spaces
-      while (s[i] === " ") i++;
-    } else {
-      word += s[i];
-      i++;
-    }
+  while (start < end) {
+    [words[start], words[end]] = [words[end], words[start]];
+    start++;
+    end--;
   }
 
-  if (word && reversed.length) word += " ";
-  return word + reversed;
+  return words.join(" ");
+};
+
+// Reverse words in-place if the string is mutable or string is in the array form
+// ['t', 'h', 'e', ' ', 's', 'k', 'y', ' ', 'i', 's', ' ', 'b', 'l', 'u', 'e']
+function reverse(arr, start, end) {
+  while (start < end) {
+    [arr[start], arr[end]] = [arr[end], arr[start]];
+    start++;
+    end--;
+  }
 }
+
+var reverseWords = function (s) {
+  const arr = [...s];
+
+  // Reverse the whole string.
+  reverse(arr, 0, arr.length - 1);
+
+  // Reverse each word.
+  let i = 1;
+  let start = 0;
+  while (i < arr.length) {
+    if (arr[i] === " ") {
+      reverse(arr, start, i - 1);
+      start = i + 1;
+    }
+    i++;
+  }
+
+  reverse(arr, start, i);
+  return arr.join("");
+};
