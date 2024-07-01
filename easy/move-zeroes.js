@@ -1,25 +1,15 @@
-function moveZeroes(nums) {
-  const size = nums.length;
-  let k = size - 1;
+// https://www.youtube.com/watch?v=aayNRwUN3Do
 
-  while (nums[k] === 0 && k >= 0) {
-    k--;
-  }
-
-  if (k === -1) return;
-
-  for (let i = k - 1; i >= 0; i--) {
-    if (nums[i] === 0) {
-      for (let j = i; j < k; j++) {
-        const left = nums[j];
-        nums[j] = nums[j + 1];
-        nums[j + 1] = left;
-      }
-      k--;
+/**
+ * @param {number[]} nums
+ * @return {void} Do not return anything, modify nums in-place instead.
+ */
+var moveZeroes = function (nums) {
+  let i = 0;
+  for (let j = 0; j < nums.length; j++) {
+    if (nums[j]) {
+      [nums[j], nums[i]] = [nums[i], nums[j]];
+      i++;
     }
   }
-}
-
-const nums = [0, 0, 1, 2];
-moveZeroes(nums);
-console.log(nums);
+};

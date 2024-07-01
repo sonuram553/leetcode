@@ -1,17 +1,17 @@
-function isSubsequence(source, target) {
-  if (source === "") return true;
-  if (source && target === "") return false;
-
+/**
+ * @param {string} s
+ * @param {string} t
+ * @return {boolean}
+ */
+var isSubsequence = function (s, t) {
   let i = 0;
-  let j = 0;
 
-  while (true) {
-    if (source[i] === target[j]) {
+  for (let j = 0; j < t.length; j++) {
+    if (t[j] === s[i]) {
       i++;
-      j++;
-    } else j++;
-
-    if (i === source.length) return true;
-    if (j === target.length) return false;
+    }
   }
-}
+
+  if (i === s.length) return true;
+  return false;
+};
