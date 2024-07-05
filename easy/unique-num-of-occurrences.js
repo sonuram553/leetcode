@@ -1,16 +1,18 @@
-function uniqueOccurrences(arr) {
+/**
+ * @param {number[]} arr
+ * @return {boolean}
+ */
+var uniqueOccurrences = function (arr) {
   const map = {};
-  const set = new Set();
-
   for (const num of arr) {
     map[num] = (map[num] || 0) + 1;
   }
 
+  const set = new Set();
   for (const key in map) {
-    const count = map[key];
-    if (set.has(count)) return false;
-    set.add(count);
+    if (set.has(map[key])) return false;
+    set.add(map[key]);
   }
 
   return true;
-}
+};
