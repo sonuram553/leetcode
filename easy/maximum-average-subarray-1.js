@@ -2,7 +2,12 @@
 // Time Complexity O(N)
 
 function findMaxAverage(nums, k) {
-  let windowSum = nums.slice(0, k).reduce((acc, num) => acc + num);
+  let windowSum = 0;
+
+  for (let i = 0; i < k; i++) {
+    windowSum += nums[i];
+  }
+
   let maxSum = windowSum;
 
   for (let i = 0; i < nums.length - k; i++) {
