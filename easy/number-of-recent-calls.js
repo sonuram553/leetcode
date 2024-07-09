@@ -1,6 +1,50 @@
+class Node {
+  constructor(value) {
+    this.value = value;
+    this.next = null;
+  }
+}
+
+class MyQueue {
+  head = null;
+  tail = null;
+  _size = 0;
+
+  get size() {
+    return this._size;
+  }
+
+  enqueue(value) {
+    const node = new Node(value);
+
+    if (!this.head) this.head = this.tail = node;
+    else {
+      this.tail.next = node;
+      this.tail = node;
+    }
+
+    return ++this._size;
+  }
+
+  dequeue() {
+    if (!this.head) return;
+
+    const node = this.head;
+
+    if (this._size === 1) this.tail = null;
+    this.head = node.next;
+    this._size--;
+
+    return node.value;
+  }
+
+  peek() {
+    return this.head?.value;
+  }
+}
+
 var RecentCounter = function () {
-  this.requests = [];
-  this.index = 0;
+  this.queue = new MyQueue();
 };
 
 /**
@@ -8,20 +52,14 @@ var RecentCounter = function () {
  * @return {number}
  */
 RecentCounter.prototype.ping = function (t) {
-  if (this.requests.length === 0) {
-    this.requests.push(t);
-    return 1;
+  const q = this.queue;
+  q.enqueue(t);
+
+  while (q.peek() < t - 3000) {
+    q.dequeue();
   }
 
-  const len = this.requests.length;
-  while (this.index < len) {
-    if (this.requests[this.index] >= t - 3000) break;
-    this.index++;
-  }
-
-  this.requests.push(t);
-  if (this.index === len) return 1;
-  return len - this.index + 1;
+  return q.size;
 };
 
 /**
