@@ -1,76 +1,43 @@
-function leafSimilar(root1, root2) {
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val, left, right) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.left = (left===undefined ? null : left)
+ *     this.right = (right===undefined ? null : right)
+ * }
+ */
+/**
+ * @param {TreeNode} root1
+ * @param {TreeNode} root2
+ * @return {boolean}
+ */
+var leafSimilar = function (root1, root2) {
   const leafs1 = [];
-  let isSimilar = true;
-
-  preOrder(
-    root1,
-    ({ val, left, right }) => !left && !right && leafs1.push(val)
-  );
-
   let i = 0;
+  let foundNonSimilar = false;
 
-  preOrder(root2, ({ val, left, right }) => {
-    if (isSimilar && !left && !right) {
-      if (val !== leafs1[i]) isSimilar = false;
-      i++;
+  dfs(root1, (val) => leafs1.push(val));
+  dfs(root2, (val) => {
+    if (foundNonSimilar) return;
+
+    if (val !== leafs1[i]) {
+      foundNonSimilar = true;
     }
+
+    i++;
   });
 
-  return isSimilar && i === leafs1.length;
-}
+  return !foundNonSimilar && i === leafs1.length;
+};
 
-function preOrder(root, callback) {
-  const stack = new Stack();
+function dfs(root, cb) {
+  if (!root) return;
 
-  root && stack.push(root);
+  dfs(root.left, cb);
 
-  while (stack.size) {
-    const node = stack.pop();
-
-    callback(node);
-    node.right && stack.push(node.right);
-    node.left && stack.push(node.left);
-  }
-}
-
-class Node {
-  constructor(value) {
-    this.value = value;
-    this.prev = null;
-  }
-}
-
-class Stack {
-  top = null;
-  _size = 0;
-
-  get size() {
-    return this._size;
+  if (!(root.left || root.right)) {
+    cb(root.val);
   }
 
-  push(value) {
-    const node = new Node(value);
-
-    if (!this.top) this.top = node;
-    else {
-      node.prev = this.top;
-      this.top = node;
-    }
-
-    return ++this._size;
-  }
-
-  pop() {
-    if (!this.top) return;
-
-    const node = this.top;
-    this.top = node.prev;
-    this._size--;
-
-    return node.value;
-  }
-
-  peek() {
-    return this.top?.value;
-  }
+  dfs(root.right, cb);
 }
