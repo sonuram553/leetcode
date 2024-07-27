@@ -1,12 +1,8 @@
-// Guess Number Higher or Low
-
-function guess(n) {}
-
 function guessNumber(n) {
   let low = 1;
   let high = n;
 
-  while (low <= high) {
+  while (true) {
     const mid = (low + high) >>> 1;
     const result = guess(mid);
 
