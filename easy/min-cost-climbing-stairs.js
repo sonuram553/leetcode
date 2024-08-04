@@ -9,7 +9,7 @@ function minCostClimbingStairs(cost) {
   let b = 0;
 
   cost.forEach((value) => {
-    c = value + Math.min(a, b);
+    const c = value + Math.min(a, b);
     a = b;
     b = c;
   });

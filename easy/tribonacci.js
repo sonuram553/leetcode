@@ -1,19 +1,18 @@
-function tribonacci(n) {
-  if (n === 0) return 0;
-  if (n <= 2) return 1;
+/**
+ * @param {number} n
+ * @return {number}
+ */
+var tribonacci = function (n) {
+  const arr = [0, 1, 1];
 
-  let a = 0,
-    b = 1,
-    c = 1,
-    x,
-    i = 2;
+  if (n < 3) return arr[n];
 
-  while (i++ < n) {
-    x = a + b + c;
-    a = b;
-    b = c;
-    c = x;
+  for (let i = 3; i <= n; i++) {
+    const sum = arr[0] + arr[1] + arr[2];
+    arr[0] = arr[1];
+    arr[1] = arr[2];
+    arr[2] = sum;
   }
 
-  return x;
-}
+  return arr[2];
+};
