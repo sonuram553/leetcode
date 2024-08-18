@@ -1,21 +1,17 @@
-// Counting Bits
+// https://www.youtube.com/watch?v=RyBM56RIWrM
 
-function countBits(n) {
-  if (n === 0) return [0];
-  if (n === 1) return [0, 1];
+/**
+ * @param {number} n
+ * @return {number[]}
+ */
+var countBits = function (n) {
+  let offset = 1;
+  const dp = Array(n + 1).fill(0);
 
-  const result = [0, 1];
-  let lastPowerOfTwo;
-
-  for (let i = 2; i <= n; i++) {
-    if ((i & (i - 1)) === 0) {
-      result.push(1);
-      lastPowerOfTwo = i;
-    } else {
-      const ones = result[i - lastPowerOfTwo] + 1;
-      result.push(ones);
-    }
+  for (let i = 1; i <= n; i++) {
+    if (offset * 2 === i) offset = i;
+    dp[i] = 1 + dp[i - offset];
   }
 
-  return result;
-}
+  return dp;
+};
