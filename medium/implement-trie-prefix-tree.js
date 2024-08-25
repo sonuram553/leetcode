@@ -1,3 +1,5 @@
+// https://www.youtube.com/watch?v=oobqoCJlHA0
+
 function TrieNode() {
   this.children = {};
   this.endOfWord = false;
