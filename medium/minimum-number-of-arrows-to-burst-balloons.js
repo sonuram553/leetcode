@@ -1,17 +1,23 @@
-function findMinArrowShots(points) {
-  const n = points.length;
-  let arrowCount = 1;
+/**
+ * @param {number[][]} points
+ * @return {number}
+ */
+var findMinArrowShots = function (points) {
+  points.sort(([x1], [x2]) => x1 - x2);
 
-  points.sort((start, end) => start[0] - end[0]);
-  let prev = points[0];
+  let shotsCount = 0;
+  let [prevStart, prevEnd] = points[0];
 
-  for (let i = 1; i < n; i++) {
-    const [start, end] = points[i];
-    if (start > prev[1]) {
-      arrowCount++;
-      prev = points[i];
-    } else prev[1] = Math.min(end, prev[1]);
+  for (const [start, end] of points.slice(1)) {
+    if (start <= prevEnd) {
+      prevStart = start;
+      prevEnd = Math.min(prevEnd, end);
+    } else {
+      shotsCount++;
+      prevStart = start;
+      prevEnd = end;
+    }
   }
 
-  return arrowCount;
-}
+  return shotsCount + 1;
+};
