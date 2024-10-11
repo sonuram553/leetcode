@@ -149,38 +149,52 @@ const MinHeap = (() => {
     }
   };
   function compare(child, parent) {
-    return child[0] < parent[0];
+    return child < parent;
   }
   return MinHeap;
 })();
 
+var MedianFinder = function () {
+  this.minHeap = new MinHeap(); // To store large numbers
+  this.maxHeap = new MaxHeap(); // To store small numbers
+};
+
 /**
- * @param {number} k
- * @param {number} w
- * @param {number[]} profits
- * @param {number[]} capital
- * @return {number}
+ * @param {number} num
+ * @return {void}
  */
-var findMaximizedCapital = function (k, w, profits, capital) {
-  const maxHeap = new MaxHeap();
-  const minHeap = new MinHeap();
+MedianFinder.prototype.addNum = function (num) {
+  this.maxHeap.insert(num); // Always insert to maxHeap than normalize
 
-  capital.forEach((capital, i) => {
-    minHeap.insert([capital, profits[i]]);
-  });
-
-  let i = 0;
-  while (i < k) {
-    while (minHeap.size && minHeap.getMin()[0] <= w) {
-      // Add profits only to maxHeap because we will've enough capital to start the corresponding project.
-      maxHeap.insert(minHeap.extractMin()[1]);
-    }
-
-    if (!maxHeap.size) break;
-
-    w += maxHeap.extractMax();
-    i++;
+  if (
+    this.minHeap.size &&
+    this.maxHeap.size &&
+    this.maxHeap.getMax() > this.minHeap.getMin()
+  ) {
+    this.minHeap.insert(this.maxHeap.extractMax());
   }
 
-  return w;
+  if (this.maxHeap.size - this.minHeap.size > 1) {
+    this.minHeap.insert(this.maxHeap.extractMax());
+  }
+
+  if (this.minHeap.size - this.maxHeap.size > 1) {
+    this.maxHeap.insert(this.minHeap.extractMin());
+  }
+};
+
+/**
+ * @return {number}
+ */
+MedianFinder.prototype.findMedian = function () {
+  const minHeapSize = this.minHeap.size;
+  const maxHeapSize = this.maxHeap.size;
+
+  if (minHeapSize === maxHeapSize) {
+    return (this.minHeap.getMin() + this.maxHeap.getMax()) / 2;
+  } else if (minHeapSize > maxHeapSize) {
+    return this.minHeap.getMin();
+  }
+
+  return this.maxHeap.getMax();
 };
