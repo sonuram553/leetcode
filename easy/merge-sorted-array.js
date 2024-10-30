@@ -1,26 +1,25 @@
-const merge = function (nums1, m, nums2, n) {
-  if (n === 0) return nums1;
-  if (m === 0) {
-    for (let i = 0; i < n; i++) {
-      nums1[i] = nums2[i];
-    }
-    return nums1;
-  }
+/**
+ * @param {number[]} nums1
+ * @param {number} m
+ * @param {number[]} nums2
+ * @param {number} n
+ * @return {void} Do not return anything, modify nums1 in-place instead.
+ */
+var merge = function (nums1, m, nums2, n) {
+  let j = m + n - 1;
+  let l = m - 1; // points to nums1 last element
+  let r = n - 1; // points to nums2 last element
 
-  let i = m - 1;
-  let j = n - 1;
-  for (let k = m + n - 1; k >= 0; k--) {
-    if (j === -1) break;
-    if (i === -1) {
-      nums1[k] = nums2[j];
-      j -= 1;
-    } else if (nums1[i] > nums2[j]) {
-      nums1[k] = nums1[i];
-      i -= 1;
+  while (r >= 0) {
+    if (nums1[l] > nums2[r]) {
+      nums1[j] = nums1[l];
+      l--;
     } else {
-      nums1[k] = nums2[j];
-      j -= 1;
+      nums1[j] = nums2[r];
+      r--;
     }
+
+    j--;
   }
 
   return nums1;
