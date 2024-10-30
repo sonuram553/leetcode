@@ -1,4 +1,8 @@
-const maxSubArray = function (nums) {
+/**
+ * @param {number[]} nums
+ * @return {number}
+ */
+var maxSubArray = function (nums) {
   let maxSum = nums[0];
   let sum = 0;
 
