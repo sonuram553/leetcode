@@ -32,21 +32,22 @@ class Stack {
 }
 
 var isValid = function (str) {
+  const stack = new Stack();
   const map = {
     ")": "(",
     "}": "{",
     "]": "[",
   };
-  const stack = new Stack();
-  stack.push(str[0]);
 
-  for (let i = 1; i < str.length; i++) {
-    // If we encounter a closing bracket
-    if (map[str[i]]) {
-      if (stack.pop() !== map[str[i]]) return false;
-    } else stack.push(str[i]);
+  for (let i = 0; i < str.length; i++) {
+    const ch = str[i];
+
+    if (ch in map) {
+      // ch is a closing parentheses
+      if (!stack.size) return false;
+      if (stack.pop() !== map[ch]) return false;
+    } else stack.push(ch);
   }
 
-  if (stack.size === 0) return true;
-  return false;
+  return stack.size === 0;
 };

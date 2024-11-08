@@ -1,24 +1,14 @@
-const factorial = function () {
-  const cache = [1, 1];
+/**
+ * @param {number} n
+ * @return {number}
+ */
+var climbStairs = function (n) {
+  let one = 1;
+  let two = 1;
 
-  const main = function (n) {
-    if (cache[n]) return cache[n];
-    cache[n] = n * main(n - 1);
-    return cache[n];
-  };
-
-  return main;
-};
-
-const climbStairs = function (n) {
-  const twos = Math.floor(n / 2);
-  const fact = factorial();
-  let result = 0;
-
-  for (let i = 0; i <= twos; i++) {
-    const ones = n - 2 * i;
-    result += fact(ones + i) / (fact(ones) * fact(i));
+  for (let i = 0; i < n - 1; i++) {
+    [one, two] = [one + two, one];
   }
 
-  return result;
+  return one;
 };

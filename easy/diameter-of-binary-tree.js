@@ -1,19 +1,28 @@
-function diameterOfBinaryTree(root) {
-  let max = 0;
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val, left, right) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.left = (left===undefined ? null : left)
+ *     this.right = (right===undefined ? null : right)
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {number}
+ */
+var diameterOfBinaryTree = function (root) {
+  let diameter = 0;
 
-  function postOrder(node) {
-    if (!node) return 0;
+  function dfs(root) {
+    if (!root) return 0;
 
-    let left = 0;
-    let right = 0;
+    const left = dfs(root.left);
+    const right = dfs(root.right);
 
-    if (node.left) left = postOrder(node.left) + 1;
-    if (node.right) right = postOrder(node.right) + 1;
-
-    max = Math.max(max, left + right);
+    diameter = Math.max(diameter, left + right);
     return Math.max(left, right) + 1;
   }
 
-  postOrder(root);
-  return max;
-}
+  dfs(root);
+  return diameter;
+};
