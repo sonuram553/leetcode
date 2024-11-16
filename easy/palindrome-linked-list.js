@@ -1,80 +1,44 @@
-// Palindrome Linked List
-// By using the approach to reverse the second half of the linked list
-
-class Node {
-  constructor(val) {
-    this.val = val;
-    this.next = null;
-  }
-}
-
-function findMiddle(head) {
-  if (!head || !head.next) return head;
-
+/**
+ * Definition for singly-linked list.
+ * function ListNode(val, next) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.next = (next===undefined ? null : next)
+ * }
+ */
+/**
+ * @param {ListNode} head
+ * @return {boolean}
+ */
+var isPalindrome = function (head) {
+  // Find middle node
   let slow = head;
-  let fast = head.next.next;
+  let fast = head;
 
-  while (fast) {
+  while (fast && fast.next) {
     slow = slow.next;
-    fast = fast.next && fast.next.next;
+    fast = fast.next.next;
   }
 
-  return slow;
-}
+  // Reverse linked list starting from slow(mid node)
+  let prev = null;
+  let curr = slow;
 
-function reverseLinkedList(head) {
-  if (!head || !head.next) return head;
-
-  let left = null;
-  let current = head;
-  let right = head.next;
-
-  while (current) {
-    current.next = left;
-    left = current;
-    current = right;
-    right = right && right.next;
+  while (curr) {
+    const next = curr.next;
+    curr.next = prev;
+    prev = curr;
+    curr = next;
   }
 
-  return left;
-}
-
-function isPalindrome(head) {
-  const middle = findMiddle(head);
-  const tail = reverseLinkedList(middle.next);
-
+  // Check is palindrome
   let left = head;
-  let right = tail;
-  let flag = true;
+  let right = prev;
 
   while (right) {
-    if (left.val !== right.val) {
-      flag = false;
-      break;
-    }
+    if (left.val !== right.val) return false;
     left = left.next;
     right = right.next;
   }
 
-  middle.next = reverseLinkedList(tail);
-
-  // print(head);
-
-  return flag;
-}
-
-function print(head) {
-  let node = head;
-
-  while (node) {
-    console.log(node.val);
-    node = node.next;
-  }
-}
-
-const head = new Node(1);
-head.next = new Node(2);
-head.next.next = new Node(2);
-head.next.next.next = new Node(1);
-
-console.log(isPalindrome(head));
+  return true;
+};
