@@ -1,26 +1,20 @@
+/**
+ * @param {number[]} nums
+ * @param {number} val
+ * @return {number}
+ */
 var removeElement = function (nums, val) {
-  let count = 0;
+  let i = nums.length - 1;
+  let j = i;
 
-  for (let i = 0; i < nums.length; i++) {
-    if (nums[i] != val) {
-      nums[count] = nums[i];
-      count += 1;
+  while (i >= 0) {
+    if (nums[i] === val) {
+      nums[i] = nums[j];
+      j--;
     }
+
+    i--;
   }
 
-  return count;
+  return j + 1;
 };
-
-const Tests = [
-  [],
-  [1],
-  [3, 3, 2],
-  [2, 2, 2, 2],
-  [1, 2, 2, 2],
-  [1, 5, 3, 4],
-  [0, 1, 2, 2, 3, 0, 4, 2],
-];
-
-for (const nums of Tests) {
-  console.log(removeElement(nums, 2));
-}

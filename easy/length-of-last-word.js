@@ -1,16 +1,20 @@
-const lengthOfLastWord = function (str) {
-  const size = str.length;
-  let i = size - 1;
+/**
+ * @param {string} s
+ * @return {number}
+ */
+var lengthOfLastWord = function (s) {
+  let i = s.length - 1;
 
-  while (str[i] === " " && i >= 0) {
-    i -= 1;
+  while (s[i] === " ") {
+    i--;
   }
 
-  let count = 0;
-  while (str[i] !== " " && i >= 0) {
-    count += 1;
-    i -= 1;
+  let len = 0;
+
+  while (i >= 0 && s[i] !== " ") {
+    len++;
+    i--;
   }
 
-  return count;
+  return len;
 };

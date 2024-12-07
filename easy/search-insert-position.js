@@ -1,26 +1,27 @@
-const searchInsert = function (nums, target) {
-  const size = nums.length;
-  if (target < nums[0]) return 0;
-  if (target > nums[size - 1]) return size;
+/**
+ * @param {number[]} nums
+ * @param {number} target
+ * @return {number}
+ */
+var searchInsert = function (nums, target) {
+  const n = nums.length;
 
-  let start = 0;
-  let end = size - 1;
+  if (target <= nums[0]) return 0;
+  if (target > nums[n - 1]) return n;
+  if (target === nums[n - 1]) return n - 1;
 
-  while (start <= end) {
-    const mid = Math.floor((start + end) / 2);
-    if (nums[mid] === target) return mid;
+  let l = 0;
+  let r = n - 1;
 
-    if (target > nums[mid]) {
-      if (target < nums[mid + 1]) return mid + 1;
-      else start = mid + 1;
-    } else {
-      if (target > nums[mid - 1]) return mid;
-      else end = mid - 1;
-    }
+  while (l <= r) {
+    const mid = (l + r) >>> 1;
+    const midVal = nums[mid];
+
+    if (midVal === target) return mid;
+
+    if (target > midVal) l = mid + 1;
+    else r = mid - 1;
   }
+
+  return l;
 };
-
-const nums = [1, 3, 5, 6];
-const target = 2;
-
-console.log(searchInsert(nums, target));
