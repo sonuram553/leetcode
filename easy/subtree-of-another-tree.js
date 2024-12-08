@@ -1,27 +1,39 @@
-function isSubtree(root, subRoot) {
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val, left, right) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.left = (left===undefined ? null : left)
+ *     this.right = (right===undefined ? null : right)
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @param {TreeNode} subRoot
+ * @return {boolean}
+ */
+var isSubtree = function (root, subRoot) {
   let isFoundSubtree = false;
 
-  function preOrder(node) {
-    if (!node) return;
+  function dfs(root) {
+    if (!root || isFoundSubtree) return;
 
-    if (equalTrees(node, subRoot)) isFoundSubtree = true;
-
-    if (!isFoundSubtree) preOrder(node.left);
-    if (!isFoundSubtree) preOrder(node.right);
+    if (compareTrees(root, subRoot)) isFoundSubtree = true;
+    dfs(root.left);
+    dfs(root.right);
   }
 
-  preOrder(root);
+  function compareTrees(root, subRoot) {
+    if (!root && !subRoot) return true; // If both are null return true;
+
+    if (!root || !subRoot) return false; // If any one is null return false
+    if (root.val !== subRoot.val) return false;
+
+    return (
+      compareTrees(root.left, subRoot.left) &&
+      compareTrees(root.right, subRoot.right)
+    );
+  }
+
+  dfs(root);
   return isFoundSubtree;
-}
-
-function equalTrees(firstTreeNode, secondTreeNode) {
-  if (firstTreeNode === null && secondTreeNode === null) return true;
-  if (firstTreeNode === null || secondTreeNode === null) return false;
-
-  if (firstTreeNode.val !== secondTreeNode.val) return false;
-
-  return (
-    equalTrees(firstTreeNode.left, secondTreeNode.left) &&
-    equalTrees(firstTreeNode.right, secondTreeNode.right)
-  );
-}
+};

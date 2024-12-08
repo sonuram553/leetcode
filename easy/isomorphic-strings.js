@@ -1,22 +1,22 @@
-function isIsomorphic(leftStr, rightStr) {
-  let map = {};
+/**
+ * @param {string} s
+ * @param {string} t
+ * @return {boolean}
+ */
+var isIsomorphic = function (s, t) {
+  const mapST = {};
+  const mapTS = {};
 
-  for (let i = 0; i < leftStr.length; i++) {
-    const leftCh = leftStr[i];
-    if (map[leftCh] && map[leftCh] !== rightStr[i]) return false;
+  for (let i = 0; i < s.length; i++) {
+    const c1 = s[i];
+    const c2 = t[i];
 
-    map[leftCh] = rightStr[i];
-  }
+    if ((c1 in mapST && mapST[c1] !== c2) || (c2 in mapTS && mapTS[c2] !== c1))
+      return false;
 
-  map = {};
-
-  // Do the similar check with the rightStr
-  for (let i = 0; i < rightStr.length; i++) {
-    const rightCh = rightStr[i];
-    if (map[rightCh] && map[rightCh] !== leftStr[i]) return false;
-
-    map[rightCh] = leftStr[i];
+    mapST[c1] = c2;
+    mapTS[c2] = c1;
   }
 
   return true;
-}
+};
