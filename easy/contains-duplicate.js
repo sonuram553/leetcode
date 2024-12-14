@@ -1,10 +1,14 @@
-function containsDuplicate(nums) {
-  const map = {};
+/**
+ * @param {number[]} nums
+ * @return {boolean}
+ */
+var containsDuplicate = function (nums) {
+  const set = new Set();
 
-  for (const num of nums) {
-    map[num] = (map[num] && map[num] + 1) || 1;
-    if (map[num] === 2) return true;
+  for (let i = 0; i < nums.length; i++) {
+    if (set.has(nums[i])) return true;
+    set.add(nums[i]);
   }
 
   return false;
-}
+};

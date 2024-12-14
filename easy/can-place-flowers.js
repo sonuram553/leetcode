@@ -1,24 +1,13 @@
 function canPlaceFlowers(flowerbed, n) {
   const size = flowerbed.length;
+  const arr = [0, ...flowerbed, 0];
 
-  for (let i = 0; i < size; i++) {
-    // If all flowers are placed.
-    if (n === 0) return true;
-
-    const place = flowerbed[i];
-
-    if (place === 0) {
-      if (
-        (i !== 0 && flowerbed[i - 1] === 1) ||
-        (i !== size - 1 && flowerbed[i + 1] === 1)
-      ) {
-        // Do nothing if adjacent is 1.
-      } else {
-        flowerbed[i] = 1;
-        n--;
-      }
+  for (let i = 1; i <= size; i++) {
+    if (arr[i - 1] === 0 && arr[i] === 0 && arr[i + 1] === 0) {
+      arr[i] = 1;
+      n--;
     }
   }
 
-  return n === 0;
+  return n <= 0;
 }
