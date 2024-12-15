@@ -6,18 +6,18 @@ class Node {
 }
 
 class MyQueue {
-  head = null;
-  tail = null;
+  right = null;
+  left = null;
   size = 0;
 
   add(x) {
     const node = new Node(x);
 
     if (this.size === 0) {
-      this.head = this.tail = node;
+      this.right = this.left = node;
     } else {
-      this.head.next = node;
-      this.head = node;
+      this.right.next = node;
+      this.right = node;
     }
 
     this.size += 1;
@@ -28,16 +28,16 @@ class MyQueue {
 
     this.size -= 1;
 
-    const deletedNode = this.tail;
-    this.tail = this.tail.next;
+    const deletedNode = this.left;
+    this.left = this.left.next;
     deletedNode.next = undefined;
 
-    if (this.size === 0) this.head = null;
+    if (this.size === 0) this.right = null;
     return deletedNode.val;
   }
 
   peek() {
-    return this.head && this.head.val;
+    return this.right && this.right.val;
   }
 
   empty() {
