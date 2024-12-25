@@ -6,7 +6,7 @@ function maxNumberOfBalloons(text) {
     if (balloon.includes(ch)) map[ch]++;
   }
 
-  let count = Number.MAX_VALUE;
+  let count = text.length;
 
   for (const ch in map) {
     if ("lo".includes(ch)) count = Math.min(count, map[ch] >>> 1);
