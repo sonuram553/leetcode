@@ -1,52 +1,46 @@
-class Node {
-  constructor(val) {
-    this.val = val;
-    this.prev = null;
-  }
-}
-
-class Stack {
-  top = null;
-
-  push(val) {
-    const node = new Node(val);
-    node.prev = this.top;
-    this.top = node;
-  }
-
-  pop() {
-    if (!this.top) return null;
-    const node = this.top;
-    this.top = node.prev;
-    node.prev = null;
-    return node;
-  }
-}
-
-const inorderTraversal = function (root) {
-  const stack = new Stack();
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val, left, right) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.left = (left===undefined ? null : left)
+ *     this.right = (right===undefined ? null : right)
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {number[]}
+ */
+var inorderTraversal = function (root) {
   const result = [];
-  let current = root;
 
-  while (stack.top || current) {
-    if (current) {
-      stack.push(current);
-      current = current.left;
-    } else {
-      const node = stack.pop();
-      result.push(node.val.val);
-      current = node.val.right;
+  function dfs(root) {
+    if (!root) return;
+
+    dfs(root.left);
+    result.push(root.val);
+    dfs(root.right);
+  }
+
+  dfs(root);
+  return result;
+};
+
+// Recursive Solution
+var inorderTraversal = function (root) {
+  const stack = [];
+  const result = [];
+  let curr = root;
+
+  while (curr || stack.length) {
+    while (curr) {
+      stack.push(curr);
+      curr = curr.left;
     }
+
+    const node = stack.pop();
+    result.push(node.val);
+    curr = node.right;
   }
 
   return result;
 };
-
-// const inorderTraversal = function (root) {
-//   if (!root) return [];
-//   return [
-//     ...inorderTraversal(root.left),
-//     root.val,
-//     ...inorderTraversal(root.right),
-//   ];
-// };

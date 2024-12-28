@@ -1,25 +1,29 @@
-function tree2str(root) {
-  let str = "";
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val, left, right) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.left = (left===undefined ? null : left)
+ *     this.right = (right===undefined ? null : right)
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {string}
+ */
+var tree2str = function (root, str) {
+  if (!root) return "";
 
-  function traverse(root) {
-    if (!root) return;
+  let leftStr = "";
+  let rightStr = "";
 
-    str += root.val;
-
-    if (root.left) {
-      str += "(";
-      traverse(root.left);
-      str += ")";
-    }
-
-    if (root.right) {
-      if (!root.left) str += "()";
-      str += "(";
-      traverse(root.right);
-      str += ")";
-    }
+  if (root.left) {
+    leftStr = "(" + tree2str(root.left) + ")";
   }
 
-  traverse(root);
-  return str;
-}
+  if (root.right) {
+    rightStr = "(" + tree2str(root.right) + ")";
+    if (!leftStr) leftStr = "()";
+  }
+
+  return root.val + leftStr + rightStr;
+};
