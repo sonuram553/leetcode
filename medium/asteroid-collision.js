@@ -3,42 +3,22 @@
  * @return {number[]}
  */
 var asteroidCollision = function (asteroids) {
-  const stack = [asteroids[0]];
+  const stack = [];
 
-  for (let i = 1; i < asteroids.length; i++) {
-    if (isColliding(peek(stack), asteroids[i])) {
-      const asteroid = Math.abs(asteroids[i]);
-      while (stack.length) {
-        if (!isColliding(peek(stack), asteroids[i])) {
-          stack.push(asteroids[i]);
-          break;
-        }
+  asteroids.forEach((ast) => {
+    while (stack.length && ast < 0 && stack[stack.length - 1] > 0) {
+      const diff = ast + stack[stack.length - 1];
 
-        const topVal = Math.abs(peek(stack));
-        if (topVal === asteroid) {
-          // Destroy both
-          stack.pop();
-          break;
-        } else if (topVal < asteroid) {
-          const size = stack.length;
-          stack.pop();
-
-          if (size === 1) {
-            stack.push(asteroids[i]);
-            break;
-          }
-        } else break;
+      if (diff < 0) stack.pop();
+      else if (diff > 0) ast = 0;
+      else {
+        ast = 0;
+        stack.pop();
       }
-    } else stack.push(asteroids[i]);
-  }
+    }
+
+    if (ast) stack.push(ast);
+  });
 
   return stack;
 };
-
-function peek(stack) {
-  return stack[stack.length - 1];
-}
-
-function isColliding(val1, val2) {
-  return val1 > 0 && val2 < 0;
-}

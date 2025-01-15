@@ -5,17 +5,21 @@
 var generateParenthesis = function (n) {
   const result = [];
 
-  function dfs(str = "(", openParenCount = 1, closeParenCount = 0) {
-    if (openParenCount === closeParenCount && openParenCount === n) {
+  function dfs(str, openCount, closedCount) {
+    if (openCount === closedCount && closedCount === n) {
       result.push(str);
       return;
     }
 
-    if (openParenCount < n) dfs(str + "(", openParenCount + 1, closeParenCount);
-    if (closeParenCount < openParenCount)
-      dfs(str + ")", openParenCount, closeParenCount + 1);
+    if (openCount < n) {
+      dfs(str + "(", openCount + 1, closedCount);
+    }
+
+    if (closedCount < openCount) {
+      dfs(str + ")", openCount, closedCount + 1);
+    }
   }
 
-  dfs();
+  dfs("", 0, 0);
   return result;
 };
