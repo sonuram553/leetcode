@@ -1,3 +1,4 @@
+// === SOLUTION 1 ===
 /**
  * Definition for singly-linked list.
  * function ListNode(val, next) {
@@ -28,6 +29,37 @@ var mergeKLists = function (lists) {
 
   return lists[0];
 };
+
+// === SOLUTION 2 ===
+/**
+ * Definition for singly-linked list.
+ * class ListNode {
+ *     constructor(val = 0, next = null) {
+ *         this.val = val;
+ *         this.next = next;
+ *     }
+ * }
+ */
+//
+class Solution {
+  /**
+   * @param {ListNode[]} lists
+   * @return {ListNode}
+   */
+  mergeKLists(lists) {
+    if (!lists.length) return null;
+
+    function helper(lists, s = 0, e = lists.length - 1) {
+      if (s === e) return lists[s];
+      if (s > e) return;
+
+      const mid = (s + e) >>> 1;
+      return mergeTwoList(helper(lists, s, mid), helper(lists, mid + 1, e));
+    }
+
+    return helper(lists);
+  }
+}
 
 function mergeTwoLists(l1, l2) {
   const dummyHead = new ListNode();
